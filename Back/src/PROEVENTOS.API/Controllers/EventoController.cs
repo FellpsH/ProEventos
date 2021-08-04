@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using PROEVENTOS.API.Data;
 using PROEVENTOS.API.Models;
 
 namespace PROEVENTOS.API.Controllers
@@ -12,49 +13,22 @@ namespace PROEVENTOS.API.Controllers
     [Route("api/[controller]")]
     public class EventoController : ControllerBase
     {
-        public IEnumerable<Evento> evento = new Evento[] {
-            new Evento(){            
-                EventoId = 1,
-                Tema = "Angular e .NET 5",
-                Local = "Belo Horizonte",
-                Lote = "Primeiro Lote",
-                QtdPessoa = 150,
-                DataEvento = DateTime.Now.AddDays(2).ToString("dd/mm/yyyy"),
-                ImagemURL = "foto.png"
-            },
-            new Evento(){     
-                EventoId = 2,
-                Tema = "O dia cinza, o ceu ta nublado!",
-                Local = "New Texas",
-                Lote = "Segundo Lote",
-                QtdPessoa = 300,
-                DataEvento = DateTime.Now.AddDays(3).ToString("dd/mm/yyyy"),
-                ImagemURL = "foto1.png"
-            },
-            new Evento(){     
-                EventoId = 3,
-                Tema = "O dia cinza, o ceu ta nublado!",
-                Local = "New Texas",
-                Lote = "Segundo Lote",
-                QtdPessoa = 300,
-                DataEvento = DateTime.Now.AddDays(3).ToString("dd/mm/yyyy"),
-                ImagemURL = "foto1.png"
-            }
-        };
-        public EventoController()
+        private readonly DataContext _context;
+        public EventoController(DataContext context)
         {
+            _context = context;
         }
 
         [HttpGet]
         public IEnumerable<Evento> Get()
         {
-            return evento;
+            return _context.Eventos;
         }
 
         [HttpGet("{id}")]
-        public IEnumerable<Evento> GetById(int id)
+        public Evento GetById(int id)
         {
-            return evento.Where(evento => evento.EventoId == id);
+            return _context.Eventos.FirstOrDefault(evento => evento.EventoId == id);
         }
 
         [HttpPost]
