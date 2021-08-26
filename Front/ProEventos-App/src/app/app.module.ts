@@ -10,13 +10,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { TESTEComponent } from './TESTE/TESTE.component';
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     EventosComponent,
     PalestrantesComponent,
-    NavComponent
+    NavComponent,
+      TESTEComponent
    ],
   imports: [
     BrowserModule,
